@@ -1,4 +1,6 @@
-import { Player, Sorting } from 'src/context/type'
+import { Player } from 'src/type'
+
+export type Sorting= 'ascending'|'descending'
 
 export type Error= {
 	error: unknown
