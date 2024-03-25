@@ -1,4 +1,4 @@
-import { Player } from 'src/type'
+import { Player } from "src/app/context/type"
 
 export type Sorting= 'ascending'|'descending'
 export type View= 'home' | 'player'

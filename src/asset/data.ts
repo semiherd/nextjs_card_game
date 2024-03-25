@@ -1,4 +1,4 @@
-import { Player } from "src/type"
+import { Player } from "src/app/context/type"
 export const testData:Player[]=[
   {
     realName: 'Brianna Forbes',
