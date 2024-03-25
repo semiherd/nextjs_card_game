@@ -1,6 +1,7 @@
 import { Player } from 'src/type'
 
 export type Sorting= 'ascending'|'descending'
+export type View= 'home' | 'player'
 
 export type Error= {
 	error: unknown

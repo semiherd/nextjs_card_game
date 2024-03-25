@@ -1,16 +1,13 @@
-import { Error } from "src/app/api/type";
+import { Error } from 'src/app/api/type'
 
-async function basicGETFetch<returnType>(endpoint:string):Promise<returnType|Error>{
+async function basicGETFetch<returnType>({ endpoint }: { endpoint: string; }):Promise<returnType|Error>{
 	try{
-		console.log('endpoint:',endpoint)
 		const response = await fetch(endpoint,{ 
 			method: "GET" ,
 			cache: 'no-store'  
 		})
-		console.log('get response:',response)
 		if (!response.ok) throw new Error('Error!');	
 		return await response.json();
-		
 	}catch(e){
 		return {
 			error: e

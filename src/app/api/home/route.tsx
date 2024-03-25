@@ -1,10 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getPlayers } from 'src/app/fn/getPlayers';
 import { isError } from 'src/app/fn/isErrorType';
-import { CardsPathParam, Error, ReturnType_Home_BFF } from 'src/app/api/type';
+import { Error, ReturnType_Home_BFF } from 'src/app/api/type';
 import { Sorting } from 'src/app/api/type';
-import { Player } from 'src/type';
-import { testData } from 'src/asset/data';
 
 export async function GET(request: NextRequest) : Promise<NextResponse<ReturnType_Home_BFF>>{
 
@@ -17,7 +15,7 @@ export async function GET(request: NextRequest) : Promise<NextResponse<ReturnTyp
 	const overview:{data:ReturnType_Home_BFF['players']}|Error= await getPlayers({sort})
 	
 	const payload= Object.assign({
-		players: isError(overview) ? [] : overview
+		players: isError(overview) ? [] : overview.data
 	})
 
 	return NextResponse.json(payload)

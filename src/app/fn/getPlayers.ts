@@ -11,8 +11,8 @@ async function getPlayers({sort}:{sort:Sorting}):Promise<{data:ReturnType_Home_B
 		if(endpoint==null){
 			return { data: [] }
 		} 
-		console.log(endpoint)
-		const overview:ReturnType_Home_BFF['players']|Error = await basicGETFetch<ReturnType_Home_BFF['players']>(endpoint)
+		console.log('endpoin in getPlayers:',endpoint)
+		const overview:ReturnType_Home_BFF['players']|Error = await basicGETFetch<ReturnType_Home_BFF['players']>({ endpoint })
 		if(isError<ReturnType_Home_BFF['players']>(overview)){
 			return { error: overview.error }
 		}

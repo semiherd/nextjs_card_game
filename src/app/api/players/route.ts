@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) : Promise<NextResponse<ReturnTyp
   	sort: searchParams.get('sort') as Sorting,
   }
 
-	const response:ReturnType_Home_BFF['players']|Error = await basicGETFetch<ReturnType_Home_BFF['players']>(BASEURL);
+	const response:ReturnType_Home_BFF['players']|Error = await basicGETFetch<ReturnType_Home_BFF['players']>({ endpoint: BASEURL });
 
 	if(isError<ReturnType_Home_BFF['players']>(response)){
 		return NextResponse.json([])
