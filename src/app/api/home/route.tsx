@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-// import { getPlayers } from 'src/app/api/fn/getPlayers';
+import { getPlayers } from 'src/app/fn/getPlayers';
 import { isError } from 'src/app/fn/isErrorType';
 import { CardsPathParam, Error, ReturnType_Home_BFF } from 'src/app/api/type';
 import { Sorting } from 'src/app/api/type';
@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) : Promise<NextResponse<ReturnTyp
   }
 
 	//Overview - fetch all players
-	const overview:ReturnType_Home_BFF['players']|Error= testData // await getPlayers({sort})
+	const overview:{data:ReturnType_Home_BFF['players']}|Error= await getPlayers({sort})
 	
 	const payload= Object.assign({
 		players: isError(overview) ? [] : overview
