@@ -12,29 +12,41 @@ const withNavigation= <TProps extends NavigationProp<NavItemType>>(
 	
 	return (props:TProps) => {
 		const [routeUrl,setRoute]= useState<{as:string,href:string}>({as:'',href:''})
-		const updateCardRoute= async () => {
+		
+		function handleRoute(props:TProps){
 			try{
-				
-				if(props.view==='home'){
-					props?.type==='control-button'
-						? setRoute({
-								as:`/home?${props.params.sort}`,
-								href:`/home`
-							})
-						: props?.type==='player-card' && props?.player
-							? setRoute({
-									as:`/player/${formatName(props.player.playerName)}?${props.params.sort}`,
-									href:`/player/${formatName(props.player.playerName)}`
-								})
-							: null
+				const name:string= formatName(props?.player?.playerName)
+				const base:string= `/${props.view}`
+
+				switch(props.type){
+					case 'control-button':
+						return {
+							as:`${base}?${props.params.sort}`,
+							href: base
+						}
+					case 'player-card':
+						return{
+							as:`${base}/${name}?${props.params.sort}`,
+							href:`${base}/${name})}`
+						}
+					default:
+						return {
+							as: '',
+							href:''
+						}
 				}
-				if(props.view==='player' && props?.player){	
-					const name:string=formatName(props.player.playerName)
-					setRoute({
-						as:`/player/${name}?${props.params.sort}`,
-						href:`/player`
-					})				
+			}catch(e){
+				return {
+					as: '',
+					href:''
 				}
+			}
+		}
+		
+		const updateCardRoute= async () => {
+			try{					
+				const route:{as:string,href:string}= handleRoute(props)
+				setRoute(route)	
 			}catch(e){
 				console.log(e)
 			}
@@ -43,10 +55,6 @@ const withNavigation= <TProps extends NavigationProp<NavItemType>>(
 		useEffect(() => {
 			updateCardRoute()
 		},[])
-
-		useEffect(() => {
-			console.log('routeUrl:',routeUrl)
-		},[routeUrl])
 
 		return (
 			<Link as={routeUrl.as} href={routeUrl.href} passHref>
