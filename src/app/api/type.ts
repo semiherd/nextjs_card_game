@@ -3,7 +3,7 @@ import { Player } from "src/app/context/type"
 export type Sorting= 'ascending'|'descending'
 export type View= 'home' | 'player'
 
-export type Error= {
+export type Error={
 	error: unknown
 }
 
@@ -23,7 +23,10 @@ export type GetPlayerResponse={
 	players: Player[]|null,
 	player: Player|null
 }
-
+export type ApiResponse<T>={
+	success: boolean,
+	data: T
+}
 export type ReturnType_Home_BFF={
 	players: Player[]
 }

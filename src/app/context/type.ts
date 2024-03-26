@@ -17,7 +17,7 @@ export type CardProviderState<T,S extends keyof T>={
 
 export type CardProviderApi={
 	updateList: (param: Player[]) => void
-	selectCard: (param:Player['playerName']) => void
+	selectCard: (param: Player['playerName']) => void
 	resetSelected: () => void
 }
 

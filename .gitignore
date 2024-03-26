@@ -34,7 +34,3 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-/src/app/component
-/src/app/home
-/src/app/page.tsx

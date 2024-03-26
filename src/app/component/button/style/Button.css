@@ -1,0 +1,26 @@
+.align-center{
+	text-align: center;
+	align-self: center;
+}
+.pd-2{
+	padding: 1%;
+	margin: 1%;
+}
+.button>p {
+  background-image: linear-gradient(#6D5D78 0 0);
+  background-size: 200% .05em;
+  background-position: 200% 100%;
+  background-repeat: no-repeat;
+  transition: background-size .3s, background-position .3s .3s;
+}
+.button>p:hover {
+  transition: background-size .3s .3s, background-position .3s;
+  background-size: 200% 100%;
+  background-position: 100% 100%;
+}
+.active{
+	background-color: teal;
+}
+.not-active{
+	background-color: transparent;
+}
