@@ -1,5 +1,5 @@
 import React from "react"
-import { capitalizeFirstCh } from 'src/component/app/fn/CapitalizeFirstCh'
+import { capitalizeFirstCh } from 'src/app/fn/capitalizeFirstCh'
 import './style/Button.css'
 import { BaseButton } from './type'
 

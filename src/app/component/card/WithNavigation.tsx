@@ -15,7 +15,7 @@ const withNavigation= <TProps extends NavigationProp<NavItemType>>(
 		
 		function handleRoute(props:TProps){
 			try{
-				const name:string= formatName(props?.player?.playerName)
+				const name:string= formatName(props?.player.playerName)
 				const base:string= `/${props.view}`
 
 				switch(props.type){
@@ -26,8 +26,8 @@ const withNavigation= <TProps extends NavigationProp<NavItemType>>(
 						}
 					case 'player-card':
 						return{
-							as:`${base}/${name}?${props.params.sort}`,
-							href:`${base}/${name})}`
+							as:`/player/${name}?${props.params.sort}`,
+							href:`/player/${name})}`
 						}
 					default:
 						return {
@@ -42,10 +42,11 @@ const withNavigation= <TProps extends NavigationProp<NavItemType>>(
 				}
 			}
 		}
-		
+
 		const updateCardRoute= async () => {
 			try{					
 				const route:{as:string,href:string}= handleRoute(props)
+				console.log('route',route)
 				setRoute(route)	
 			}catch(e){
 				console.log(e)

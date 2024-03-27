@@ -22,12 +22,9 @@ export type NavigationProp<T extends NavItemType>={
 	type: T,
 	params: QueryParams
 	view: View
-	player: T extends 'player-card'
-	? Remove<CardProps,'height'> 
-	: T extends 'button-card'
-		? BaseButton
-		: never
 	width: number
+	border: boolean
+	showAllText: boolean
 	state: boolean
 	item: T extends 'player-card'
 		? Remove<CardProps,'height'> 

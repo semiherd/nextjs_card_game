@@ -1,0 +1,45 @@
+@media screen and (min-width:400px){
+  .text-center{
+    text-align: center;
+  }
+  .detail-container {
+    background-color: transparent;
+    color: var(--primary-text-color);
+    border: 2px solid var(--primary-text-color);
+    margin: 1%;
+    border-radius: var(--control-button-border-radius);
+  }
+
+  .detail-container p {
+    font-size: 1.5rem;
+  }
+
+  .control-container {
+    max-width: var(--max-width);
+    margin: 3% 1%;
+  }
+
+  .control-container p {
+    font-size: 1rem;
+    padding: 2%;
+    margin: 2%;
+    color: var(--primary-text-color);
+    border: 1px solid var(--button-border-color);
+    border-radius: var(--control-button-border-radius);
+  }
+
+  .no-info{
+    background-color: tomato;
+    color: var(--primary-text-color);
+    border: none;
+    font-size: 1.25rem;
+    margin: 8% 5%;
+    padding: 5%;
+    border-radius: var(--control-button-border-radius);
+  }
+}
+@media screen and (min-width:1100px){
+  .detail-container p {
+    font-size: 2rem;
+  }
+}

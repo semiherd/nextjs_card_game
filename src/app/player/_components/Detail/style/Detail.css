@@ -1,0 +1,29 @@
+@media screen and (min-width:300px){
+	@keyframes transition-diag{
+		0%{
+			width:0;
+			border: 0px solid var(--primary-text-color);
+			opacity: 0.5
+		}
+		50%{
+			width: 50%;
+			border: 0.25px solid var(--primary-text-color);
+			opacity: 0.5
+		}
+		75%{
+			width: 75%;
+			border: 1px solid var(--primary-text-color);
+			opacity: 0.75
+		}
+		100%{
+			width: 100%;
+			border: 2px solid var(--primary-text-color);
+			opacity: 1
+		}
+	}	
+	.detail-anim{
+		animation: transition-diag linear 1s;
+		width: 100%;
+		height: 100%;
+	}
+}

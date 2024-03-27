@@ -1,6 +1,6 @@
 import { Player } from "src/app/context/type";
 import { ReturnType_Home_BFF, View } from "src/app/api/type";
-import OverView from "./Overview";
+import OverView from ".";
 
 type PropsType={
 	data: ReturnType_Home_BFF['players'],

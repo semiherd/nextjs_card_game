@@ -1,22 +1,23 @@
 'use client'
 import React,{useState,useEffect} from "react";
-import Card from 'src/app/component/card/Card';
 import { Player } from 'src/app/context/type';
 import { View } from 'src/app/api/type';
-import { Grid } from "src/app/component/layout/index";
 import { CardsInEachRow } from "src/asset/constant";
 import { useCardState } from "src/app/context/CardContext";
-import { withNavigation } from "src/app/component/card/WithNavigation";
+import { Layout, Card, withNavigation } from "src/app/component/index";
 
 const CardComponent= withNavigation(Card)
 
 type Props={
-	screen:View,selected: Player['playerName']|null ,width:number
+	screen:View,
+	selected: Player['playerName']|null ,
+	width:number
 }
 
 const Item= (props:{item:Player}&Props) => {	
 	return (
 		<CardComponent 
+			view={props.screen}
 			key={props.item.playerName}
 			type={`player-card`}
 			params= {{sort: 'sort=ascending'}} // assigned as default sort-direction
@@ -28,7 +29,7 @@ const Item= (props:{item:Player}&Props) => {
 	)
 }
 
-const CardsContainer = (props:{screen:View,selected: Player['playerName']|null ,width:number}) => {
+const CardsContainer = (props:Props) => {
 	const { list } = useCardState()
 	const [data,setData]= useState<Player[]>([])
 	
@@ -43,14 +44,15 @@ const CardsContainer = (props:{screen:View,selected: Player['playerName']|null ,
 			console.log(e)
 		}
 	}
+
 	return (
-		<Grid repeat={CardsInEachRow}>
+		<Layout.Grid repeat={CardsInEachRow}>
 			<>
-				{data?.map( (item:Player,index:number)  => 
-					<Item key={index} item={item} {...props} />
+				{data?.map((item:Player)  => 
+					<Item key={item.realName} item={item} {...props} />
 				)}
 			</>							
-		</Grid>
+		</Layout.Grid>
 	)
 }
 export default CardsContainer
