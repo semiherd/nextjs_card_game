@@ -1,9 +1,7 @@
-'use client'	
 import React from "react"
 import Layout from './Layout'
 import NoData from './NoData'
 import { Button, Title , Card, withNavigation } from "src/app/component/index"
-import { ContentContainerHeight } from 'src/asset/constant'
 import { Player } from "src/app/context/type"
 import '../Content/style/Content.css'
 import './style/Detail.css'

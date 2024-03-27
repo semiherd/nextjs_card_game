@@ -25,9 +25,10 @@ const withNavigation= <TProps extends NavigationProp<NavItemType>>(
 							href: base
 						}
 					case 'player-card':
+						const playerString:string= name?.split(' ').join('-')
 						return{
-							as:`/player/${name}?${props.params.sort}`,
-							href:`/player/${name})}`
+							as:`/player/${playerString}?${props.params.sort}`,
+							href:`/player/${playerString})}`
 						}
 					default:
 						return {

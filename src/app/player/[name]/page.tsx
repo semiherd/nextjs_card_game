@@ -1,12 +1,12 @@
 import React from "react"
-import Game from 'src/app/component/layout/PageLayout'
+import Layout from 'src/app/component/layout/PageLayout'
 import { Player } from 'src/app/context/type'
 import { ContentContainerHeight,DetailContainerWidth, ControlContainerWidth } from 'src/asset/constant'
 import { Overview, Content, Control, Detail } from "src/app/player/_components/index";
-import styles from "src/app/page.module.css";
 import { basicGETFetch } from "src/app/fn/basicFetch";
 import { ApiResponse, ReturnType_Player_BFF } from 'src/app/api/type'
 import { BASE_API_URL } from 'src/asset/constant'
+import styles from "src/app/page.module.css";
 
 interface CardProps{ 
 	params: {
@@ -27,7 +27,7 @@ const Player= async <CProps extends CardProps>(props:CProps)=> {
 	
 	return (
 		<main className={styles.main}> 
-			<Game 
+			<Layout 
 				content= {
 					<Content 
 						detail={<DetailComp player={apiResp===null ?null :apiResp!} />} 
