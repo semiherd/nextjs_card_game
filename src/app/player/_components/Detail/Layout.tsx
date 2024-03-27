@@ -1,15 +1,18 @@
 import React from "react"
 import { Col } from 'src/app/component/layout/index'
+import { CardProvider } from "src/app/context/CardContext"
 
 const Layout = ({playerContainer}:{
 	playerContainer: React.ReactNode,
 }) => {
 	return (
-			<Col>
-				<>
-					{playerContainer}
-				</>
-			</Col>
+			<CardProvider>
+				<Col>
+					<>
+						{playerContainer}
+					</>
+				</Col>
+			</CardProvider>
 	)
 };
 

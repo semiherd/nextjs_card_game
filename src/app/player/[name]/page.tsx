@@ -24,19 +24,26 @@ const Player= async <CProps extends CardProps>(props:CProps)=> {
 	}
 	
 	const apiResp:ApiResponse<ReturnType_Player_BFF|null>= await basicGETFetch<ReturnType_Player_BFF>(url)
-	
+
 	return (
 		<main className={styles.main}> 
-			<Layout 
-				content= {
-					<Content 
-						detail={<DetailComp player={apiResp===null ?null :apiResp!} />} 
-						control={<ControlComp />} /> 
-					}
-				overview={apiResp.data===null
-					? null
-					: <OverviewComp data={apiResp.data.players} />}
-			/>
+			{apiResp.success
+				? <Layout			
+					content= {
+						<Content 
+							detail={<DetailComp 
+								player={apiResp?.data?.player
+										? apiResp.data.player
+										: null
+							} />} 
+							control={<ControlComp />} /> 
+						}
+					overview={apiResp.data===null
+						? null
+						: <OverviewComp data={apiResp.data.players} />}
+				/>
+				: <h1>No Api Response</h1>
+			}
     </main>
 	)
 };
