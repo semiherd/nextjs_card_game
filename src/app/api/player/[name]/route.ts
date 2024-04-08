@@ -9,14 +9,17 @@ export async function GET(request: NextRequest) : Promise<NextResponse<ReturnTyp
 	const { sort } = {
   	sort: searchParams.get('sort') as Sorting,
   }
-	console.log('name:',name)
+
 	//fetch all players
 	const players:ReturnType_Home_BFF['players']= await getPlayers({sort})
-
+	
 	//filter requested-player-by-player-name
 	const player: ReturnType_Home_BFF['players']= players.filter( p => p.playerName.split(' ').join('-').toLowerCase()===name)
+	
+	//payload-object
 	const payload:ReturnType_Player_BFF= Object.assign({
-		player: player.length ? player[0] :null
+		player: player.length ? player[0] :null,
+		players
 	})
 
 	return NextResponse.json(payload)	

@@ -1,0 +1,20 @@
+@keyframes transition-home-control{
+	0%{
+		opacity: 0.25;
+		transform: translate(-15vw,0vh);
+	}
+	50%{
+		opacity: 0.5;
+		transform: translate(0vw,0vh);
+	}
+	100%{
+		opacity: 1;
+		transform: translate(15vw,0vh);
+	}
+}	
+.control-anim{
+	transform: translate(15vw,0vh);
+	animation: transition-home-control linear 1s;
+	width: 100%;
+	height: 100%;
+}

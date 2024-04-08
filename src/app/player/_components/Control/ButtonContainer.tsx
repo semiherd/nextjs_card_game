@@ -4,16 +4,22 @@ import { ControlButton } from './type'
 import { controlbuttons } from './Buttons'
 import { useCardDispatch, useCardState } from "src/app/context/CardContext"
 import { Button, Layout, withNavigation } from "src/app/component/index";
-import { View } from "src/app/context/type"
+import { Sorting, View } from "src/app/context/type"
+import { BaseProp } from "src/app/component/button/type"
+import { QueryParamType } from "src/app/api/type"
 
-const NavigationButton= withNavigation(Button)
+interface ButtonProp extends BaseProp{
+	dir:Sorting
+}
+const SortButtonWNav= withNavigation(Button)
 
 const ButtonContainer = ({view}:{view:View}) => {
 	const { sorting } = useCardState()
+	const { updateSorting } = useCardDispatch()
 	
-	async function handleClick(item:ControlButton):Promise<void>{
+	async function handleClick(props:ControlButton):Promise<void>{
 		try{	
-			//updateSorting(item.dir)
+			updateSorting(props.dir)
 		}catch(e){
 			console.log(e)
 		}
@@ -22,10 +28,37 @@ const ButtonContainer = ({view}:{view:View}) => {
 	return (
 		<Layout.Grid repeat={controlbuttons.length}>
 			<>
-				{controlbuttons.map((item:ControlButton) => <NavigationButton params={{sort: `sort=${item.dir}`}} type={`control-button`} view={`${view}`} state={sorting===item.dir ?true:false} uppercase key={item.label} onClick={() => handleClick(item)} text={item.label}/>)}
-			</>
-		</Layout.Grid>		
-	)
-};
+				{controlbuttons.map((item:ControlButton) => {
+					
+					const querySort:QueryParamType['sort']= {
+							query:`sort=${item.dir}`,
+						 	value: item.dir
+					}
 
-export default ButtonContainer;
+					return (
+						<SortButtonWNav
+							key={item.label}
+							type={`sort-button`}
+							params= {{sort: querySort }}
+							view={`${view}`}
+							item={{
+								_typeid: "sort-button",
+								item: {
+									label: item.label
+								},
+								onClick: () => handleClick(item),
+								state: sorting=== item.dir ?true:false,
+								uppercase: true,
+								border: true,
+								showAllText: false,
+							}}  
+						/>
+					)	
+				})}
+			</>
+		</Layout.Grid>	
+	)
+}
+export default ButtonContainer
+							
+		

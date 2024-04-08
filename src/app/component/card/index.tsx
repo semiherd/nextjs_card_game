@@ -1,42 +1,31 @@
 import React from "react"
-import { CardProps } from 'src/app/component/card/type'
+import { ItemProps } from 'src/app/component/card/type'
+import { formatText } from "./fn/formatText";
 import { CardWidth, CardHeight, DetailContainerWidth, VisibleChInCard } from 'src/asset/constant'
 import './style/Card.css'
+import { useCardDispatch } from "src/app/context/CardContext";
 
 const keys= ['realName','playerName','asset'] as const 
 
-const Card = (props:CardProps) => {
-	const {state,player,width,height,showAllText,border}= props;
-	const borderStyle:string= border ?'border' :'no-border'
-	const selectedStyle:string= state ?'selected' :'not-selected'
-			
-	const marginClass:string= showAllText ? 'mg-v-0' :'mg-h-1 mg-v-3'
-	const w:number= width ?width :CardWidth
+const Card = ( props: ItemProps & {onClick:(param:string) => void} ) => {
+
+	const borderStyle:string= props.border ?'border' :'no-border'
+	const selectedStyle:string= props.state ?'selected' :'not-selected'
+	const marginClass:string= props.showAllText ? 'mg-v-0' :'mg-h-1 mg-v-3'
+	const w:number= props.width ?props.width :CardWidth
 
 	const styling={
-		width:  showAllText
+		width:  props.showAllText
 			? `${DetailContainerWidth}vw`
 			: `${w}vw`,
-		height:  height ? `${height}vh`:`${CardHeight}vh`,
+		height:  props.height ? `${props.height}vh`:`${CardHeight}vh`,
 	}
-
-	function handleText(str:string,limit:number):string{
-		try{
-			const response:string= str.length>limit 
-				? `${str.slice(0,limit)}...` 
-				: str
-			return response
-		}catch(e){
-			console.log(e)
-			return ''
-		}
-	}
-
+	
 	return (
-		<div className={`${marginClass} ${selectedStyle} ${borderStyle} pd-v-1 pd-h-2 radius-5`} style={styling}>
-			{player && keys.map( item => {
-				if(player[item]){
-					return <h1 key={item} className={`card-text`}>{showAllText ?player[item] :handleText(player[item],VisibleChInCard)}</h1>
+		<div className={`no-flick ${marginClass} ${selectedStyle} ${borderStyle} pd-v-1 pd-h-2 radius-5`} style={styling}>
+			{props && keys.map( (i: typeof keys[number]) => {
+				if(props._typeid==='player-card'){	
+					return <h1 key={i} className={`card-text`}>{formatText(props[i],VisibleChInCard,props.showAllText,props.uppercase)}</h1>
 				}
 				return null
 			})}		

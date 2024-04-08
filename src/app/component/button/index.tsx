@@ -1,16 +1,18 @@
 import React from "react"
-import { capitalizeFirstCh } from 'src/app/fn/capitalizeFirstCh'
 import { BaseButton } from './type'
 import './style/Button.css'
+import { formatText } from "./fn/formatText";
 
-const Button = (props:BaseButton) => {
-	const {state,uppercase,onClick,text}= props	
+const Button=<T extends {label:string}>(props:BaseButton<T>) => {
+	const {state,showAllText,uppercase,onClick,item}= props	
 	
-	return (	
-		<div className={`button align-center pd-2`} onClick={onClick}>
-			<p className={`${state ?'active':'not-active'}`}>{uppercase ?text.toUpperCase() :capitalizeFirstCh(text)}</p>
+	if(!item){
+		return null
+	}
+	return <div className={`button align-center pd-2`} onClick={onClick}>
+			<p className={`${state ?'active':'not-active'}`}>{formatText(item.label,item.label.length,showAllText,uppercase)}</p>
 		</div>
-	)
+	
 };
 
 export default Button;

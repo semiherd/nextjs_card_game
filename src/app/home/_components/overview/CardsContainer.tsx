@@ -1,5 +1,5 @@
 'use client'
-import React,{useState,useEffect} from "react";
+import React,{useLayoutEffect, useState} from "react";
 import { Player } from 'src/app/context/type';
 import { View } from 'src/app/api/type';
 import { CardsInEachRow } from "src/asset/constant";
@@ -14,43 +14,40 @@ type Props={
 	width:number
 }
 
-const Item= (props:{item:Player}&Props) => {	
-	return (
-		<CardComponent 
-			view={props.screen}
-			key={props.item.playerName}
-			type={`player-card`}
-			params= {{sort: 'sort=ascending'}} // assigned as default sort-direction
-			state={props.selected===props.item.playerName ?true:false} 
-			player={props.item} 
-			width={(props.width/CardsInEachRow)*(1- (CardsInEachRow*0.05))} 
-			border 
-			showAllText={false} />
-	)
-}
-
 const CardsContainer = (props:Props) => {
 	const { list } = useCardState()
-	const [data,setData]= useState<Player[]>([])
+	const [activeCard,setActiveCard]= useState<Player['playerName']>()
 	
-	useEffect(() => {
-		handleList()
-	},[list])
-
-	async function handleList(){
-		try{
-			setData(list)
-		}catch(e){
-			console.log(e)
-		}
-	}
+	useLayoutEffect(() => {
+		const player:Player['playerName']= window.location.pathname
+		if(props.screen==='player'){
+			const playerName:Player['playerName']=player.split('/player/')[1]
+			setActiveCard(playerName)
+		} 
+	},[window.location])
 
 	return (
 		<Layout.Grid repeat={CardsInEachRow}>
 			<>
-				{data?.map((item:Player)  => 
-					<Item key={item.realName} item={item} {...props} />
-				)}
+				{list?.map(( item: Player,index:number)  => {
+					return(
+						<CardComponent
+							key={index.toString()}
+							type={`player-card`}
+							params= {{sort: { query: 'sort=ascending', value: 'ascending' }}}
+							view={`${props.screen}`}
+							item={{
+								...item,
+								_typeid: "player-card",
+								state: activeCard===item.playerName.split(' ').join('-') ? true:false,
+								border: true,
+								showAllText: false,
+								uppercase: true,
+								width: (props.width/CardsInEachRow)*(1- (CardsInEachRow*0.05)),
+							}}  
+						/>
+					)
+				})}
 			</>							
 		</Layout.Grid>
 	)

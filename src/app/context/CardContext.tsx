@@ -1,23 +1,41 @@
 'use client'
-import React, { useEffect, useMemo } from "react"
-import { Player, CardProviderState, CardProviderApi,SourceType, Sorting, View } from './type'
+import React, { useMemo } from "react"
+import { Player, CardProviderState, CardProviderApi,Sorting} from './type'
 import { cardReducer } from './CardReducer'
 import { CONTEXT_ACTIONS, ResponseActionVals } from './Action'
-import { useRouter } from 'next/navigation'
-const CardStateCtx= React.createContext<CardProviderState<Player,'playerName'>>({} as CardProviderState<Player,'playerName'>)
+
+const CardStateCtx= React.createContext<CardProviderState<Player>>({} as CardProviderState<Player>)
 const CardDispatchCtx= React.createContext<CardProviderApi>({} as CardProviderApi)
 
 function CardProvider({ children }:{children: React.ReactNode}) {
-    const router = useRouter()
-    const initialState:CardProviderState<Player,'playerName'>= {
+    const initialState:CardProviderState<Player>= {
       sorting: null,
-      selected: null,
       list: []
     }
     
     const [state, dispatch] = React.useReducer(cardReducer, initialState);
-  
-    const api = useMemo(() => {	  
+
+    const api = useMemo(() => {	
+          
+      async function updateSorting(dir:Sorting|null):Promise<ResponseActionVals> {
+        try{
+          if(dir) {					
+            dispatch({ 
+              type: CONTEXT_ACTIONS.LIST.SORT,
+              payload: {
+                data: dir
+              }
+            })
+            if(state.sorting===dir)
+              return CONTEXT_ACTIONS.RESPONSE.SUCCESS
+            else 
+						  return CONTEXT_ACTIONS.RESPONSE.FAIL
+					}else
+						return CONTEXT_ACTIONS.RESPONSE.FAIL
+        }catch(e){
+          return CONTEXT_ACTIONS.RESPONSE.FAIL
+        }
+      }
 
       async function updateList(data:Player[]):Promise<ResponseActionVals> {
         try{
@@ -37,39 +55,9 @@ function CardProvider({ children }:{children: React.ReactNode}) {
         }
       }
 
-      async function selectCard(param: Player['playerName']):Promise<ResponseActionVals> {
-        try{
-          dispatch({ 
-							type: CONTEXT_ACTIONS.CARD.SELECT,
-              payload: {
-                data: param
-              }
-            })
-					return CONTEXT_ACTIONS.RESPONSE.SUCCESS
-					
-        }catch(e){
-          return CONTEXT_ACTIONS.RESPONSE.FAIL
-        }
-      }
-
-			async function resetSelected():Promise<ResponseActionVals>{
-        try{				 
-            dispatch({ 
-              type: CONTEXT_ACTIONS.CARD.RESET,
-              payload: {
-								data: null
-							}
-            })
-						return CONTEXT_ACTIONS.RESPONSE.SUCCESS					
-        }catch(e){
-          return CONTEXT_ACTIONS.RESPONSE.FAIL
-        }
-      }
-
 			return { 
         updateList,
-        selectCard,
-        resetSelected,
+        updateSorting,
       }
 		},[])
 

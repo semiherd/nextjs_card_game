@@ -7,34 +7,3 @@
   min-height: 100vh;
   background-color: var(--primary-bg);
 }
-.grid{
-  display: grid;
-  grid-template-columns: .2fr .8fr;
-}
-.wd-auto{
-  width: auto;
-}
-.pd-2{
-	padding: 2%;
-}
-.text-center{
-	text-align: center;
-}
-.align-center{
-	align-self: center;
-}
-.full-wd{
-	width: 100%;
-}
-
-/* Enable hover only on non-touch devices */
-@media (hover: hover) and (pointer: fine) {
-  .control-button:hover {
-    background: yellow;
-    border: 10px solid black
-  }
-
-  .control-button:hover p {
-    transform: translateX(4px);
-  }
-}

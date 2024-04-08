@@ -15,7 +15,6 @@ const OverView = (props:{data:Player[],screen:View,selected:Player['playerName']
 	const { updateList }= useCardDispatch()
 	
 	useEffect(() => {
-		console.log('data',data)
 		updateList(data)
 	},[data])
 

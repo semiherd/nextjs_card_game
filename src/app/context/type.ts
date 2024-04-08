@@ -1,3 +1,5 @@
+import { QueryParamType } from '../api/type'
+import { ControlButton } from '../player/_components/Control/type'
 import { CONTEXT_ACTIONS } from './Action'
 
 export type Sorting= 'ascending'|'descending'
@@ -9,16 +11,14 @@ export type Player={
 	asset: string
 }
 
-export type CardProviderState<T,S extends keyof T>={
+export type CardProviderState<T>={
 	list: T[]
-	selected: T[S] | null
 	sorting: Sorting| null
 }
 
 export type CardProviderApi={
 	updateList: (param: Player[]) => void
-	selectCard: (param: Player['playerName']) => void
-	resetSelected: () => void
+	updateSorting: (dir: Sorting ) => void
 }
 
 type ResetSelected= {
@@ -58,3 +58,8 @@ export type PlayerSource= {
 	dir: Sorting
 }
 export type SourceType= HomeSource | PlayerSource
+
+export type RouteReturn= {
+	query: QueryParamType['sort']['query']|null
+	value: Sorting|null
+} 

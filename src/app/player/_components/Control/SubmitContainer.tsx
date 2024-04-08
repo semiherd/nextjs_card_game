@@ -1,4 +1,5 @@
 'use client'
+import { BaseProp } from 'src/app/component/button/type'
 import { Button } from 'src/app/component/index'
 
 const SubmitContainer= () => {
@@ -13,7 +14,7 @@ const SubmitContainer= () => {
 
 	return (
 		<>
-			<Button state={false} uppercase onClick={handleSubmit} text={`submit`} />
+			<Button<BaseProp> state={false} uppercase onClick={handleSubmit} item={{label:'submit'}} />
 		</>
 	)
 }

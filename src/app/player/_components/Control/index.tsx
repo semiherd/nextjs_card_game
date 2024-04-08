@@ -4,8 +4,10 @@ import SubmitContainer from './SubmitContainer'
 import { Title } from "src/app/component/index";
 import { View } from "src/app/context/type"
 import '../Content/style/Content.css'
+import './style/Control.css'
 
 const Control = ({view,width,height}:{view:View,height:number,width:number}) => {
+	
 	const styling= {
 		width: `${width}vw`,
 		height: `${height}vh`,
@@ -13,7 +15,7 @@ const Control = ({view,width,height}:{view:View,height:number,width:number}) => 
 
 	return (
 		<div 
-			className={`control-container border`}
+			className={`control-container radius-5 border ${view==='home' ? 'control-anim' :'' }`}
 			style={styling}
 		>
 			<Title size={`1rem`} color={`#F5F5F5`} text={`Controls`}/>
@@ -25,4 +27,4 @@ const Control = ({view,width,height}:{view:View,height:number,width:number}) => 
 	)
 };
 
-export default Control;
+export default Control
