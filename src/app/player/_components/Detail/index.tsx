@@ -2,7 +2,7 @@
 import React from "react"
 import Layout from './Layout'
 import NoData from './NoData'
-import { Button, Title , Card, withNavigation } from "src/app/component/index"
+import { Title , Card } from "src/app/component/index"
 import { Player } from "src/app/context/type"
 import '../Content/style/Content.css'
 import './style/Detail.css'
