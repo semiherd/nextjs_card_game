@@ -1,54 +1,34 @@
-'use client'
-import React,{useLayoutEffect, useState} from "react";
-import { Player } from 'src/app/context/type';
-import { View } from 'src/app/api/type';
+import React, { useEffect, useState } from "react";
 import { CardsInEachRow } from "src/asset/constant";
-import { useCardState } from "src/app/context/CardContext";
-import { Layout, Card, withNavigation } from "src/app/component/index";
+import { Card, Layout } from "src/app/component/index";
+import CardList from "./CardList";
+import { ContainerProps } from "./type";
 
-const CardComponent= withNavigation(Card)
+const CardsContainer = (props:ContainerProps) => {
+	const [shouldRender,setShouldRender]= useState<boolean>(false)
 
-type Props={
-	screen:View,
-	selected: Player['playerName']|null ,
-	width:number
-}
+	useEffect(() => {
+		setShouldRender(true);
+	}, []);
 
-const CardsContainer = (props:Props) => {
-	const { list } = useCardState()
-	const [activeCard,setActiveCard]= useState<Player['playerName']>()
-	
-	useLayoutEffect(() => {
-		const player:Player['playerName']= window.location.pathname
-		if(props.screen==='player'){
-			const playerName:Player['playerName']=player.split('/player/')[1]
-			setActiveCard(playerName)
-		} 
-	},[window.location])
-
+	if(!shouldRender){
+		[...Array(3)].map((e, i) => {
+			return <Card  
+				key={i.toString()}
+				playerName=""
+				realName=""
+				asset=""
+				_typeid= 'player-card'
+				state= {false}
+				border= {false}
+				showAllText= {false}
+				uppercase= {false}
+			/>
+		})
+	}
 	return (
 		<Layout.Grid repeat={CardsInEachRow}>
-			<>
-				{list?.map(( item: Player,index:number)  => {
-					return(
-						<CardComponent
-							key={index.toString()}
-							type={`player-card`}
-							params= {{sort: { query: 'sort=ascending', value: 'ascending' }}}
-							view={`${props.screen}`}
-							item={{
-								...item,
-								_typeid: "player-card",
-								state: activeCard===item.playerName.split(' ').join('-') ? true:false,
-								border: true,
-								showAllText: false,
-								uppercase: true,
-								width: (props.width/CardsInEachRow)*(1- (CardsInEachRow*0.05)),
-							}}  
-						/>
-					)
-				})}
-			</>							
+			<CardList {...props} />	
 		</Layout.Grid>
 	)
 }

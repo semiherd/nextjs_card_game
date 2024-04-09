@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useLayoutEffect, useState } from 'react'
 import { NavItemType, NavigationProp } from './type'
 import Link from "next/link"
 const formatName=(item:string) => item.split(' ').join('-')
@@ -52,7 +52,7 @@ const withNavigation= <TProps extends NavigationProp<NavItemType,TProps['item']>
 			}
 		}
 
-		useEffect(() => {
+		useLayoutEffect(() => {
 			updateCardRoute()
 		},[])
 		

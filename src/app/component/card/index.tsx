@@ -7,7 +7,7 @@ import { useCardDispatch } from "src/app/context/CardContext";
 
 const keys= ['realName','playerName','asset'] as const 
 
-const Card = ( props: ItemProps & {onClick:(param:string) => void} ) => {
+const Card = ( props: ItemProps ) => {
 
 	const borderStyle:string= props.border ?'border' :'no-border'
 	const selectedStyle:string= props.state ?'selected' :'not-selected'
