@@ -9,7 +9,7 @@ const Button=<T extends {label:string}>(props:BaseButton<T>) => {
 	if(!item){
 		return null
 	}
-	return <div className={`button align-center pd-2`} onClick={onClick}>
+	return <div className={`button align-center pd-2`} onClick={() =>onClick()}>
 			<p className={`${state ?'active':'not-active'}`}>{formatText(item.label,item.label.length,showAllText,uppercase)}</p>
 		</div>
 	

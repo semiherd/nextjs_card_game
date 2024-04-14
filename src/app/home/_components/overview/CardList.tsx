@@ -1,5 +1,4 @@
-'use client'
-import React,{useEffect, useLayoutEffect, useState} from "react";
+import React,{useEffect, useState} from "react";
 import { Player } from 'src/app/context/type';
 import { CardsInEachRow } from "src/asset/constant";
 import { useCardState } from "src/app/context/CardContext";
@@ -7,14 +6,12 @@ import { Card, withNavigation } from "src/app/component/index";
 import { ContainerProps } from "./type";
 
 const CardComponent= withNavigation(Card)
-const CardDefComponent= withNavigation(Card)
 
 const CardList = (props:ContainerProps) => {
 	const { list } = useCardState()
 	const [activeCard,setActiveCard]= useState<Player['playerName']>()
 	
-
-	useLayoutEffect(() => {
+	useEffect(() => {
 		const player:Player['playerName']= window.location.pathname
 		if(props.screen==='player'){
 			const playerName:Player['playerName']=player.split('/player/')[1]
@@ -27,9 +24,9 @@ const CardList = (props:ContainerProps) => {
 			{list?.map(( item: Player,index:number)  => {
 				return(
 					<CardComponent
-						key={index.toString()}
+						key={`${item.playerName}`}
 						type={`player-card`}
-						params= {{sort: { query: 'sort=ascending', value: 'ascending' }}}
+						params= {{sort: 'ascending' }}
 						view={`${props.screen}`}
 						item={{
 							...item,

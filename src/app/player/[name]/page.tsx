@@ -5,9 +5,10 @@ import { ContentContainerHeight,DetailContainerWidth, ControlContainerWidth } fr
 import { Overview, Content, Control, Detail } from "src/app/player/_components/index";
 import { basicGETFetch } from "src/app/fn/basicFetch";
 import { BASE_API_URL } from 'src/asset/constant'
-import styles from "src/app/page.module.css";
-import { ApiResponse, QueryParamType, ReturnType_Player_BFF, Sorting } from 'src/app/api/type'
+import { ApiResponse, QueryParamType, QueryString, ReturnType_Player_BFF, Sorting } from 'src/app/api/type'
 import { sortBy } from "src/app/fn/sortBy";
+import { generateQueryValue } from "src/app/fn/generateQueryValue";
+import styles from "src/app/page.module.css";
 
 interface CardProps{ 
 	params: {
@@ -20,36 +21,20 @@ const OverviewComp= ({data}: {data:ReturnType_Player_BFF['players']}) => <Overvi
 const ControlComp= () => <Control view={`player`} height={ContentContainerHeight} width={ControlContainerWidth} />
 const DetailComp= ({player}:{player:Player|null}) => <Detail player={player} height={ContentContainerHeight} width={DetailContainerWidth} />
 
-function isSorting(i:string|QueryParamType['sort']){
-	if(i==='ascending' || i==='descending'){
-		return true
-	}
-	return false
-}
-
 const Player= async <CProps extends CardProps>(props:CProps)=> {
+	const sortQuery:Sorting= generateQueryValue('sort',props.searchParams) 		
+	const sortQueryStr:QueryString<'sort'>= `sort=${sortQuery}`
+
 	const url={ 
-		endpoint: `${BASE_API_URL}/player/${props.params.name}`
+		endpoint: `${BASE_API_URL}/player/${props.params.name}?${sortQueryStr}`
 	}
 	
 	const apiResp:ApiResponse<ReturnType_Player_BFF|null>= await basicGETFetch<ReturnType_Player_BFF>(url)
 	
-	const defaultSort:Sorting= 'ascending'
-	const defaultSortObj:QueryParamType['sort']={
-		query: `sort=${defaultSort}`,
-		value: defaultSort
-	}
-	const param:QueryParamType['sort']= props.searchParams?.sort 
-		? isSorting(props.searchParams?.sort)
-			? props.searchParams?.sort
-			:	defaultSortObj
-		: defaultSortObj
-	console.log(param)
 	const sortedPlayers:{data:Player[]} = apiResp.data?.players
-		? await sortBy<Player>(apiResp?.data?.players,'playerName',param.value)
+		? await sortBy<Player>(apiResp?.data?.players,'playerName',sortQuery)
 		: { data: [] }
 		
-
 	return (
 		<main className={styles.main}> 
 			{apiResp.success
@@ -71,6 +56,6 @@ const Player= async <CProps extends CardProps>(props:CProps)=> {
 			}
     </main>
 	)
-};
+}
 
 export default Player

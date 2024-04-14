@@ -1,22 +1,20 @@
 'use client'
-import React,{ useLayoutEffect, useState } from "react"
+import React,{ useEffect } from "react"
 import { Title } from "src/app/component/index"
 import { MarginCardsWithTitle, DetailContainerWidth } from 'src/asset/constant'
 import { Player } from "src/app/context/type"
 import { View } from "src/app/api/type"
 import { useCardState,useCardDispatch } from "src/app/context/CardContext";
 import CardsContainer from './CardsContainer'
-import DefaultContainer from "./DefaultContainer"
 import NoCard from './NoCard'
 import './style/Overview.css'
 
-const OverView = (props:{data:Player[],screen:View,selected:Player['playerName']|null }) => {
-	
+const OverView = (props:{data:Player[],screen:View,selected:Player['playerName']|null }) => {	
 	const { data }= props
 	const { list } = useCardState()
 	const { updateList }= useCardDispatch()
 	
-	useLayoutEffect(() => {
+	useEffect(() => {
 		updateList(data)
 	},[data])
 

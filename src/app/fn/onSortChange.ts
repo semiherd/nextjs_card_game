@@ -1,6 +1,6 @@
 import { QueryParamType } from "../api/type";
 
-type Return= QueryParamType['sort']['query']
+type Return= QueryParamType['sort']
 
 function onSort(sort:QueryParamType['sort']|null):Return{
   const existingParamsString = window.location.search;
@@ -8,7 +8,7 @@ function onSort(sort:QueryParamType['sort']|null):Return{
   if (sort == null) {
 		params.delete('sort')
   } else {
-		params.set('sort', sort.query);
+		params.set('sort', `sort=${sort}`);
   }
 	return params.toString() as Return
 }

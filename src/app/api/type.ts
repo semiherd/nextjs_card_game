@@ -1,13 +1,15 @@
 import { Player } from "src/app/context/type"
 
 export type View= 'home' | 'player'
-export type Sorting= 'ascending'|'descending'
+export type Sorting= 'default'|'ascending'|'descending'
 export type QueryParams='sort'
 export type QueryParamType ={
 	[k in QueryParams]: k extends 'sort'
-		? { query:`${k}=${Sorting}`, value: Sorting }
+		? Sorting 
 		: never
 } 
+export type QueryString<T extends QueryParams>=  `${T}=${QueryParamType[T]}`
+
 export type Error={
 	error: unknown
 }

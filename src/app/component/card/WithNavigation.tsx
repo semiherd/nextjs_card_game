@@ -1,12 +1,15 @@
 'use client'
-import React, { useLayoutEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavItemType, NavigationProp } from './type'
+import { generateQueryValue } from 'src/app/fn/generateQueryValue'
+import { QueryString } from 'src/app/api/type'
 import Link from "next/link"
+
 const formatName=(item:string) => item.split(' ').join('-')
 
 type LinkProps={ as:string, href:string }
 
-type CType<T>= React.ComponentType<T>
+type CType<T>= React.ComponentType<T>|React.JSX.Element | null
 
 const withNavigation= <TProps extends NavigationProp<NavItemType,TProps['item']>>(
 	Component: CType<TProps['item']>
@@ -17,16 +20,20 @@ const withNavigation= <TProps extends NavigationProp<NavItemType,TProps['item']>
 		
 		function handleRoute(props:TProps){
 			try{			
+				const sortValue= generateQueryValue<'sort'>('sort',props.params)
+				const sortQueryStr:QueryString<'sort'>= `sort=${sortValue}`
+				
 				switch(props.item._typeid){
 					case 'sort-button':		
 						return {
-							as: `${window?.location.pathname}?${props.params.sort.query}`,
+							as: `${window?.location.pathname}?${sortQueryStr}`,
 							href: window?.location.pathname
 						}
 					case 'player-card':
-						const name:string= formatName(props?.item.playerName)
+						const name:string= formatName(props?.item.playerName)					
+						
 						return{
-							as:  `/player/${name}?${props.params.sort.query}`,
+							as:  `/player/${name}?${sortQueryStr}`,
 							href: `/player/${name})}`
 						}					
 					default:
@@ -52,7 +59,7 @@ const withNavigation= <TProps extends NavigationProp<NavItemType,TProps['item']>
 			}
 		}
 
-		useLayoutEffect(() => {
+		useEffect(() => {
 			updateCardRoute()
 		},[])
 		

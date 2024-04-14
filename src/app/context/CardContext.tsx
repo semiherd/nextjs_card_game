@@ -1,6 +1,7 @@
 'use client'
 import React, { useMemo } from "react"
-import { Player, CardProviderState, CardProviderApi,Sorting} from './type'
+import { Sorting } from 'src/app/api/type'
+import { Player, CardProviderState, CardProviderApi } from './type'
 import { cardReducer } from './CardReducer'
 import { CONTEXT_ACTIONS, ResponseActionVals } from './Action'
 

@@ -1,8 +1,7 @@
 import { QueryParamType } from '../api/type'
-import { ControlButton } from '../player/_components/Control/type'
 import { CONTEXT_ACTIONS } from './Action'
+import { Sorting } from 'src/app/api/type'
 
-export type Sorting= 'ascending'|'descending'
 export type View= 'home' | 'player'
 
 export type Player={
@@ -36,7 +35,7 @@ type SelectCard= {
 type UpdateSorting= {
 	type: typeof CONTEXT_ACTIONS.LIST.SORT
 	payload: {
-		data: 'ascending'|'descending'
+		data: Sorting
 	}
 }
 type UpdateList= {
@@ -60,6 +59,6 @@ export type PlayerSource= {
 export type SourceType= HomeSource | PlayerSource
 
 export type RouteReturn= {
-	query: QueryParamType['sort']['query']|null
+	query: QueryParamType['sort']|null
 	value: Sorting|null
 } 
