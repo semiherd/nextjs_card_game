@@ -1,7 +1,7 @@
 export const CONTEXT_ACTIONS={
 	CARD: {
-		SELECT: "Select_Card",
-		RESET: "Reset_Selected_Card",
+		SUBMIT: "Submit_Card",
+		RESET: "Reset_Card",
 	},
 	LIST:{
 		SORT: 'Sort_List',

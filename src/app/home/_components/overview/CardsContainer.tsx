@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { CardsInEachRow } from "src/asset/constant";
 import { Card, Layout } from "src/app/component/index";
-import CardList from "./CardList";
 import { ContainerProps } from "./type";
+import CardList from "./CardList";
 
 const CardsContainer = (props:ContainerProps) => {
 	const [shouldRender,setShouldRender]= useState<boolean>(false)

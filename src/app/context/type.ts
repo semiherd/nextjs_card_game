@@ -1,5 +1,5 @@
 import { QueryParamType } from '../api/type'
-import { CONTEXT_ACTIONS } from './Action'
+import { CONTEXT_ACTIONS, ResponseActionVals } from './Action'
 import { Sorting } from 'src/app/api/type'
 
 export type View= 'home' | 'player'
@@ -12,32 +12,13 @@ export type Player={
 
 export type CardProviderState<T>={
 	list: T[]
-	sorting: Sorting| null
 }
 
 export type CardProviderApi={
-	updateList: (param: Player[]) => void
-	updateSorting: (dir: Sorting ) => void
+	updateList: (param: Player[]) => Promise<ResponseActionVals>
+	submitCard: (item: Player['playerName'] ) => Promise<ResponseActionVals>
 }
 
-type ResetSelected= {
-	type: typeof CONTEXT_ACTIONS.CARD.RESET
-	payload: {
-		data: null
-	}
-}
-type SelectCard= {
-	type: typeof CONTEXT_ACTIONS.CARD.SELECT
-	payload: {
-		data: Player['playerName']
-	}
-}
-type UpdateSorting= {
-	type: typeof CONTEXT_ACTIONS.LIST.SORT
-	payload: {
-		data: Sorting
-	}
-}
 type UpdateList= {
 	type: typeof CONTEXT_ACTIONS.LIST.UPDATE
 	payload: {
@@ -45,7 +26,8 @@ type UpdateList= {
 	}
 }
 
-export type CardReducer= ResetSelected | SelectCard | UpdateSorting | UpdateList
+
+export type CardReducer= UpdateList
 
 export type HomeSource= {
 	type: 'home',

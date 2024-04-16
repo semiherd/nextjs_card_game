@@ -1,11 +1,10 @@
 import React from "react"
-import CardsContainer from "./CardsContainer";
 import { ContainerProps } from "./type";
 
 const DefaultContainer = (props:ContainerProps) => {
 	return (
 		<div>
-			<h1>test</h1>
+			<h1></h1>
 		</div>
 	)
 };

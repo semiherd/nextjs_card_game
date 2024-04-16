@@ -3,7 +3,7 @@ import Layout from 'src/app/component/layout/PageLayout'
 import { Player } from 'src/app/context/type'
 import { ContentContainerHeight,DetailContainerWidth, ControlContainerWidth } from 'src/asset/constant'
 import { Overview, Content, Control, Detail } from "src/app/player/_components/index";
-import { basicGETFetch } from "src/app/fn/basicFetch";
+import { fetchGet } from "src/app/fn/fetchGet";
 import { BASE_API_URL } from 'src/asset/constant'
 import { ApiResponse, QueryParamType, QueryString, ReturnType_Player_BFF, Sorting } from 'src/app/api/type'
 import { sortBy } from "src/app/fn/sortBy";
@@ -29,7 +29,7 @@ const Player= async <CProps extends CardProps>(props:CProps)=> {
 		endpoint: `${BASE_API_URL}/player/${props.params.name}?${sortQueryStr}`
 	}
 	
-	const apiResp:ApiResponse<ReturnType_Player_BFF|null>= await basicGETFetch<ReturnType_Player_BFF>(url)
+	const apiResp:ApiResponse<ReturnType_Player_BFF|null>= await fetchGet<ReturnType_Player_BFF>(url)
 	
 	const sortedPlayers:{data:Player[]} = apiResp.data?.players
 		? await sortBy<Player>(apiResp?.data?.players,'playerName',sortQuery)

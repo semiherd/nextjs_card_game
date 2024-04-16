@@ -1,5 +1,5 @@
 'use client'
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { ControlButton } from './type'
 import { controlbuttons } from './Buttons'
 import { Layout } from "src/app/component/index";
@@ -7,11 +7,25 @@ import { View } from "src/app/context/type"
 import { SortButtonWNav } from './SortButton'
 
 const ButtonContainer = ({view}:{view:View}) => {
+	const [location,setLocation]=useState<{search:string}|null>({search:''})
+	
+	useEffect(() => {  
+		const handleLocation = () => {
+      setLocation(window.location);
+    }
+
+    window.addEventListener('load', handleLocation);
+
+    return () => window.removeEventListener('load', handleLocation);
+  }, []);
 
 	return (
 		<Layout.Grid repeat={controlbuttons.length}>
 			<>
 				{controlbuttons.map((item:ControlButton) => {
+					const state:boolean= location?.search?.split('?sort=')[1]=== item.dir 
+						? true
+						: false
 					return (
 						<SortButtonWNav
 							key={item.label}
@@ -24,7 +38,7 @@ const ButtonContainer = ({view}:{view:View}) => {
 									label: item.label
 								},
 								onClick: () => null,
-								state: window.location.search.split('?sort=')[1]=== item.dir ?true:false,
+								state,
 								uppercase: true,
 								border: true,
 								showAllText: false,

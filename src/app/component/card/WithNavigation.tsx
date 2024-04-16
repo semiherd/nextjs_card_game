@@ -9,7 +9,7 @@ const formatName=(item:string) => item.split(' ').join('-')
 
 type LinkProps={ as:string, href:string }
 
-type CType<T>= React.ComponentType<T>|React.JSX.Element | null
+type CType<T>= React.ComponentType<T>
 
 const withNavigation= <TProps extends NavigationProp<NavItemType,TProps['item']>>(
 	Component: CType<TProps['item']>

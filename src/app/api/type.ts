@@ -19,9 +19,13 @@ export type CardsPathParam={
 }
 export type CardPathParam={
 	id: 'player'
-	name: string
+	name: Player['playerName']
 }
-export type PathType= CardsPathParam | CardPathParam
+export type CardSubmitParam={
+	id: 'card-submit'
+}
+
+export type PathType= CardsPathParam | CardPathParam | CardSubmitParam
 
 export type GetPlayerResponse={
 	players: Player[]|null,

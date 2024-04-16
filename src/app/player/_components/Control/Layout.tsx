@@ -1,4 +1,5 @@
 import { Col } from 'src/app/component/layout/index'
+import { CardProvider } from 'src/app/context/CardContext';
 
 const ControlLayout = ({actionContainer,submitContainer}:{
 	actionContainer: React.ReactNode,
@@ -9,12 +10,14 @@ const ControlLayout = ({actionContainer,submitContainer}:{
 	};
 
 	return (
-			<Col alignSelfOption="center">
-				<div style={translate}>
-					{actionContainer}
-					{submitContainer}
-				</div>
-			</Col>
+			<CardProvider>
+				<Col alignSelfOption="center">
+					<div style={translate}>
+						{actionContainer}
+						{submitContainer}
+					</div>
+				</Col>
+			</CardProvider>
 	)
 };
 

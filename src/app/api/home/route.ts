@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) : Promise<NextResponse<ReturnTyp
 	const { sort } = {
   	sort: searchParams.get('sort') as Sorting,
   }
-
+	
 	//Overview - fetch all players
 	const overview:ReturnType_Home_BFF['players']= await getPlayers({sort})
 	

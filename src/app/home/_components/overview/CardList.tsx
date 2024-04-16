@@ -1,7 +1,7 @@
 import React,{useEffect, useState} from "react";
 import { Player } from 'src/app/context/type';
 import { CardsInEachRow } from "src/asset/constant";
-import { useCardState } from "src/app/context/CardContext";
+import { useCardDispatch, useCardState } from "src/app/context/CardContext";
 import { Card, withNavigation } from "src/app/component/index";
 import { ContainerProps } from "./type";
 

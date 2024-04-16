@@ -1,43 +1,43 @@
 'use client'
 import React, { useMemo } from "react"
-import { Sorting } from 'src/app/api/type'
 import { Player, CardProviderState, CardProviderApi } from './type'
 import { cardReducer } from './CardReducer'
 import { CONTEXT_ACTIONS, ResponseActionVals } from './Action'
+import { fetchPost } from "../fn/fetchPost"
+import { generatePath } from "../fn/generatePath"
+import { ApiResponse } from "../api/type"
 
 const CardStateCtx= React.createContext<CardProviderState<Player>>({} as CardProviderState<Player>)
 const CardDispatchCtx= React.createContext<CardProviderApi>({} as CardProviderApi)
 
+type ReturnType_Submit= ApiResponse<Player|null>
+
 function CardProvider({ children }:{children: React.ReactNode}) {
     const initialState:CardProviderState<Player>= {
-      sorting: null,
       list: []
     }
     
     const [state, dispatch] = React.useReducer(cardReducer, initialState);
 
     const api = useMemo(() => {	
-          
-      async function updateSorting(dir:Sorting|null):Promise<ResponseActionVals> {
+      
+      async function submitCard(pname:Player['playerName']):Promise<ResponseActionVals> {
         try{
-          if(dir) {					
-            dispatch({ 
-              type: CONTEXT_ACTIONS.LIST.SORT,
-              payload: {
-                data: dir
-              }
-            })
-            if(state.sorting===dir)
-              return CONTEXT_ACTIONS.RESPONSE.SUCCESS
-            else 
-						  return CONTEXT_ACTIONS.RESPONSE.FAIL
-					}else
-						return CONTEXT_ACTIONS.RESPONSE.FAIL
+            
+          const endpoint: string|null = generatePath({id:`card-submit`});      
+          if(endpoint===null) return CONTEXT_ACTIONS.RESPONSE.FAIL
+          const apiResp= await fetchPost<Player,{id: string}>(endpoint, {id:pname});
+          
+          if(apiResp) 
+            return CONTEXT_ACTIONS.RESPONSE.SUCCESS
+          else
+            return CONTEXT_ACTIONS.RESPONSE.FAIL
         }catch(e){
+          console.log(e)
           return CONTEXT_ACTIONS.RESPONSE.FAIL
         }
       }
-
+      
       async function updateList(data:Player[]):Promise<ResponseActionVals> {
         try{
           if(data) {					
@@ -58,7 +58,7 @@ function CardProvider({ children }:{children: React.ReactNode}) {
 
 			return { 
         updateList,
-        updateSorting,
+        submitCard,
       }
 		},[])
 

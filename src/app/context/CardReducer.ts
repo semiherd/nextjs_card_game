@@ -8,11 +8,6 @@ export const cardReducer = (prevState: CardProviderState<Player>, action:CardRed
 				...prevState,
 				list: action.payload.data
 			}
-		case CONTEXT_ACTIONS.LIST.SORT:
-			return {
-				...prevState,
-				sorting: action.payload.data
-			}
 		default:
 			return prevState;
 	}

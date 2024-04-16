@@ -3,7 +3,6 @@ import { ItemProps } from 'src/app/component/card/type'
 import { formatText } from "./fn/formatText";
 import { CardWidth, CardHeight, DetailContainerWidth, VisibleChInCard } from 'src/asset/constant'
 import './style/Card.css'
-import { useCardDispatch } from "src/app/context/CardContext";
 
 const keys= ['realName','playerName','asset'] as const 
 

@@ -1,4 +1,4 @@
-import { basicGETFetch } from './basicFetch';
+import { fetchGet } from './fetchGet';
 import { generatePath } from './generatePath';
 import { ApiResponse, CardsPathParam, ReturnType_Home_BFF } from 'src/app/api/type';
 import { Sorting } from 'src/app/api/type';
@@ -12,7 +12,7 @@ async function getPlayers({sort}:{sort:Sorting}):Promise<ReturnType_Home_BFF['pl
 		const param:CardsPathParam= { id:'players',search:{ sort }}
 		const endpoint: string|null = generatePath(param);
 		if(endpoint==null) return []
-		const response:Return = await basicGETFetch<ReturnType_Home_BFF['players']>({endpoint});
+		const response:Return = await fetchGet<ReturnType_Home_BFF['players']>({endpoint});
 		if(!response.success || response.data===null){
 			return []
 		}
