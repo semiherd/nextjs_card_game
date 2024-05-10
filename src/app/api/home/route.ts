@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getPlayers } from 'src/app/fn/getPlayers';
-import { ApiResponse, ReturnType_Home_BFF } from 'src/app/api/type';
+import { ReturnType_Home_BFF } from 'src/app/api/type';
 import { Sorting } from 'src/app/api/type';
 
 export async function GET(request: NextRequest) : Promise<NextResponse<ReturnType_Home_BFF>>{

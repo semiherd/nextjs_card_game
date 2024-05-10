@@ -17,7 +17,7 @@ interface CardProps{
 	searchParams: QueryParamType
 }
 
-const OverviewComp= ({data}: {data:ReturnType_Player_BFF['players']}) => <Overview data={data} selected={null} screen="player" />
+const OverviewComp= ({data}: {data:ReturnType_Player_BFF['players']}) => <Overview data={data} screen="player" />
 const ControlComp= () => <Control view={`player`} height={ContentContainerHeight} width={ControlContainerWidth} />
 const DetailComp= ({player}:{player:Player|null}) => <Detail player={player} height={ContentContainerHeight} width={DetailContainerWidth} />
 

@@ -10,18 +10,36 @@ import './style/SubmitContainer.css'
 const SubmitContainer= () => {
 	const { submitCard }= useCardDispatch()
 	const [state,setState]= useState<boolean>(false)
-
+	const [submitted,setSubmitted]=useState<boolean>(false) 
+	const removeDuration:number= 3
+	
+	async function handleSubmitted(){
+		try{
+			if(submitted){
+				setTimeout(() => {
+					setSubmitted(false);
+				}, removeDuration * 1000);
+			}
+		}catch(e){
+			console.log(e)
+		}
+	}
 	useEffect(() => {
 		handleSubmit()
 	},[state])
 
+	useEffect(() => {
+	handleSubmitted()
+	},[submitted])
+
 	const handleSubmit= async () => {
 		try{
+			
 			if(state){
 				if(window?.location?.pathname){
 					const pname:Player['playerName']= window.location.pathname.split('/player/')[1]
 					const response:ResponseActionVals= await submitCard(pname)
-					console.log('resp:',response)
+					if(response==='success') setSubmitted(true)
 				}
 			}
 		}catch(e){
@@ -34,6 +52,7 @@ const SubmitContainer= () => {
 
 	return (
 		<div className={style}>	
+			{submitted ?<h1>submitted</h1> :null}
 			<Button<BaseProp> showAllText state={state} uppercase onClick={() => setState((prev) => !prev)} item={{label:'submit'}} />
 		</div>
 	)

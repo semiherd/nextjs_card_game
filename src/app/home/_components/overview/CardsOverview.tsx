@@ -1,21 +1,15 @@
-import { Player } from "src/app/context/type";
-import { ReturnType_Home_BFF, View } from "src/app/api/type";
-import OverView from "./index";
+import Overview from "./index";
+import { CardsContainerPropsType } from "./type";
 
-type PropsType={
-	data: ReturnType_Home_BFF['players'],
-	selected: Player['playerName']|null,
-	screen: View
-}
-function CardsOverview (props:PropsType)  {
+function CardsOverview (props:CardsContainerPropsType)  {
 	
-	const styling= props?.screen==='home' && !props.data.length 
-			? 'anim-opac'
-			: 'move-left'	
+	const styling= props?.screen==='home' && props.data.length 
+			? 'move-left'	
+			: ''
 
 	return (
 		<div className={`${styling}`}>
-				<OverView {...props} />
+				<Overview {...props} />
 		</div>
 	) 
 }

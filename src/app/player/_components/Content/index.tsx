@@ -1,5 +1,5 @@
 import { Row } from 'src/app/component/layout/index'
-import { CardProvider } from 'src/app/context/CardContext';
+import { CardProvider } from 'src/app/context/CardProvider';
 import './style/Content.css'
 
 async function Content({detail,control}:{

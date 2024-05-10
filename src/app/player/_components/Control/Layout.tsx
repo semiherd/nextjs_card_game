@@ -1,5 +1,5 @@
 import { Col } from 'src/app/component/layout/index'
-import { CardProvider } from 'src/app/context/CardContext';
+import { CardProvider } from 'src/app/context/CardProvider';
 
 const ControlLayout = ({actionContainer,submitContainer}:{
 	actionContainer: React.ReactNode,

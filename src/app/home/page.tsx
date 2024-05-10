@@ -8,7 +8,7 @@ import CardsOverview from 'src/app/home/_components/overview/CardsOverview'
 import styles from "src/app/page.module.css";
 
 const ControlComp= () => <Control view={`home`} height={ContentContainerHeight} width={ControlContainerWidth} />
-const OverviewComp= ({data}: {data:ReturnType_Home_BFF['players']}) => <CardsOverview data={data} selected={null} screen="home" />
+const OverviewComp= ({data}: {data:ReturnType_Home_BFF['players']}) => <CardsOverview data={data} screen="home" />
 
 async function HomePage({searchParams}:{searchParams:QueryParamType}) {
 

@@ -1,7 +1,12 @@
-import { Player, View } from "src/app/context/type"
+import { View } from "src/app/context/type"
+import { ReturnType_Home_BFF } from "src/app/api/type";
 
 export type ContainerProps={
 	screen: View,
-	selected: Player['playerName']|null ,
 	width: number
+}
+
+export type CardsContainerPropsType={
+	data: ReturnType_Home_BFF['players'],
+	screen: View
 }

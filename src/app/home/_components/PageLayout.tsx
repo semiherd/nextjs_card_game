@@ -1,6 +1,6 @@
 import React from "react"
 import { Col } from "src/app/component/layout/index";
-import { CardProvider } from "src/app/context/CardContext";
+import { CardProvider } from "src/app/context/CardProvider";
 
 const PageLayout = ({content,overview}:{content: React.ReactNode,overview: React.ReactNode}) => {
 

@@ -21,6 +21,7 @@
       "src/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "jest.config.js", "src/app/component/button/_test/button.test.js"],
+  "exclude": ["node_modules"],
+  "types": ["node", "jest", "@testing-library/jest-dom"],
 }

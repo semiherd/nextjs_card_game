@@ -9,7 +9,7 @@ import CardsContainer from './CardsContainer'
 import NoCard from './NoCard'
 import './style/Overview.css'
 
-const OverView = (props:{data:Player[],screen:View,selected:Player['playerName']|null }) => {	
+const Overview = (props:{data:Player[],screen:View}) => {	
 	const { data }= props
 	const { list } = useCardState()
 	const { updateList }= useCardDispatch()
@@ -35,4 +35,4 @@ const OverView = (props:{data:Player[],screen:View,selected:Player['playerName']
 	)
 }
 
-export default OverView
+export default Overview

@@ -4,7 +4,7 @@ import { Card, Layout } from "src/app/component/index";
 import { ContainerProps } from "./type";
 import CardList from "./CardList";
 
-const CardsContainer = (props:ContainerProps) => {
+const CardsContainer = ( props: ContainerProps ) => {
 	const [shouldRender,setShouldRender]= useState<boolean>(false)
 
 	useEffect(() => {
@@ -12,7 +12,7 @@ const CardsContainer = (props:ContainerProps) => {
 	}, []);
 
 	if(!shouldRender){
-		[...Array(3)].map((e, i) => {
+		[...Array(CardsInEachRow)].map((e, i) => {
 			return <Card  
 				key={i.toString()}
 				playerName=""
