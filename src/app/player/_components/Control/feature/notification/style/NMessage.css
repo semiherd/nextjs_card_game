@@ -1,0 +1,39 @@
+:root {
+  --message-padding: 1%;
+  --message-margin: 0%;
+  --white-bg: #FFF5EE;
+  --gray: #708090;
+  --tomato: tomato;
+  --message-opacity: 1;
+  --message-content-gap: 1em;
+	--message-speed: 250ms;
+}
+
+.nmessage {
+  position: fixed;
+  bottom: 0%;
+  border-radius: 10px;
+  padding: var(--message-padding);
+  margin: var(--message-padding);
+  opacity: var(--message-opacity);
+}
+
+.nmessage--success {
+  color: var(--gray);
+  background-color: var(--white-bg);
+}
+
+.nmessage--fail {
+  color: var(--tomato);
+  background-color: var(--white-bg);
+}
+
+.nmessage p{
+  background-color: transparent;
+  text-align: center;
+  font-size: 15px;
+  color: var(--gray);
+  font-weight: 900;
+}
+
+

@@ -5,45 +5,58 @@ import { Button } from 'src/app/component/index'
 import { ResponseActionVals } from 'src/app/context/Action'
 import { useCardDispatch } from 'src/app/context/CardContext'
 import { Player } from 'src/app/context/type'
+import NMessageList from 'src/app/player/_components/Control/feature/notification/NMessageList'
+import { NMessageProps } from 'src/app/player/_components/Control/feature/notification/type'
 import './style/SubmitContainer.css'
 
 const SubmitContainer= () => {
 	const { submitCard }= useCardDispatch()
 	const [state,setState]= useState<boolean>(false)
-	const [submitted,setSubmitted]=useState<boolean>(false) 
-	const removeDuration:number= 3
+	const [notifData,setNotifData]= useState<NMessageProps[]>([]) 
+	const autoClose:number= 2
 	
-	async function handleSubmitted(){
-		try{
-			if(submitted){
-				setTimeout(() => {
-					setSubmitted(false);
-				}, removeDuration * 1000);
-			}
-		}catch(e){
-			console.log(e)
-		}
-	}
+	const removeNotif = (id:NMessageProps['id']) => {
+    setNotifData((prev) => prev.filter((n) => n.id !== id));
+  };
+	const addNotif = (item:NMessageProps) => {
+    setNotifData((prev) => ([
+			...prev, 
+			item
+		]));
+  };
+
+	const showNotif = (message: string, type:'success'|'fail') => {
+    const nMessage = {
+      id: `submit-${type}`, 
+			label: message, 
+			type,
+			size: {width: 20, height: 20}
+    };
+
+    addNotif(nMessage)
+
+    setTimeout(() => {
+			removeNotif(nMessage.id);
+    }, autoClose * 1000);   
+  };
+
 	useEffect(() => {
 		handleSubmit()
 	},[state])
 
-	useEffect(() => {
-	handleSubmitted()
-	},[submitted])
-
 	const handleSubmit= async () => {
-		try{
-			
+		try{		
 			if(state){
 				if(window?.location?.pathname){
 					const pname:Player['playerName']= window.location.pathname.split('/player/')[1]
 					const response:ResponseActionVals= await submitCard(pname)
-					if(response==='success') setSubmitted(true)
+					const message:string= response==='success' ?'submitted' :'submission failed'
+					showNotif(message,response)
 				}
 			}
 		}catch(e){
 			console.log(e)
+			setState(false)
 		}finally{
 			setState(false)
 		}
@@ -52,8 +65,8 @@ const SubmitContainer= () => {
 
 	return (
 		<div className={style}>	
-			{submitted ?<h1>submitted</h1> :null}
 			<Button<BaseProp> showAllText state={state} uppercase onClick={() => setState((prev) => !prev)} item={{label:'submit'}} />
+			<NMessageList data={notifData} position={`bottom-left`} />
 		</div>
 	)
 }

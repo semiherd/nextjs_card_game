@@ -27,9 +27,7 @@ const config = {
   testEnvironment: "jsdom",
 
     //
-  setupFilesAfterEnv: [
-    "@testing-library/jest-dom/extend-expect"
-  ]
+  setupFilesAfterEnv: ["@testing-library/jest-dom"]
 };
 
 module.exports = createJestConfig(config);

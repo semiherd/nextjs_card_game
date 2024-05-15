@@ -5,8 +5,6 @@ import { CardStateCtx } from 'src/app/context/CardProvider';
 import { testData } from 'src/asset/data';
 import { CardProviderState, Player } from 'src/app/context/type';
 import CardList from '../overview/CardList';
-import userEvent from '@testing-library/user-event'
-import { BASE_URL } from 'src/asset/constant'
 
 const contextMockedValue:CardProviderState<Player>= {
   list: testData
@@ -44,6 +42,3 @@ test('renders CardsList component in player-screen', async () => {
   expect(container.childElementCount).toEqual(contextMockedValue.list.length)
 })
 
-test.only('changes the color of the card on click', async () => {
-  
-})

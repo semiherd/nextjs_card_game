@@ -1,0 +1,67 @@
+:root {
+  --notif-speed: 1500ms;
+  --notif-list-padding: 1vh;
+  --notif-list-margin: 0 8%;
+  --notif-width: 15vw;
+}
+
+.notif-list {
+  position: fixed;
+  margin: 0;
+  padding: var(--notif-list-padding);
+  margin: var(--notif-list-margin);
+  width: var(--notif-width);
+  max-width: var(--notif-width);
+  max-height: 20vh;
+  overflow: hidden auto;
+  
+}
+
+.notif-list--top-left {
+  top: 0;
+  left: 0;
+}
+
+.notif-list--top-right {
+  top: 0;
+  right: 0;
+}
+
+.notif-list--bottom-left {
+  bottom: 0;
+  left: 0;
+}
+
+.notif-list--bottom-right {
+  bottom: 0;
+  right: 0;
+}
+
+@keyframes message-in {
+  0% {
+    width: 0;
+    opacity: 0;
+  }
+  100% {
+    width: var(--notif-width);
+    opacity: 1
+  }
+}
+
+
+.notif-list--top-left .nmessage,
+.notif-list--bottom-left .nmessage {
+  animation: message-in var(--notif-speed);
+}
+
+.notif-list--top-right .nmessage,
+.notif-list--bottom-right .nmessage {
+  animation: message-in var(--notif-speed);
+}
+
+.notif-list .nmessage {
+  width: var(--notif-width);
+  transition: transform var(--notif-speed), 
+    opacity var(--notif-speed),
+    box-shadow var(--notif-speed) ease-in-out;
+}
