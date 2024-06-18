@@ -7,7 +7,7 @@ import Link from "next/link"
 
 const formatName=(item:string) => item.split(' ').join('-')
 
-type LinkProps={ as:string, href:string }
+type LinkProps={ as: string, href: string }
 
 type CType<T>= React.ComponentType<T>
 
